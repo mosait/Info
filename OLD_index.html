@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Hilfe-Portal — DE / AR</title>
+  <style>
+    :root{
+      --bg-black:#000;
+      --accent-green:#0f3d2e;
+      --white: #fff;
+      --border-black:#000;
+    }
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;overflow: visible !important;}
+    body{
+      min-height:100%;
+      background-color:var(--bg-black);
+      background-image:
+        radial-gradient(rgba(255,255,255,0.95) 1px, transparent 1px),
+        radial-gradient(rgba(255,255,255,0.6) 0.6px, transparent 0.6px);
+      background-size:20px 20px, 40px 40px;
+      background-position: 0 0, 10px 20px;
+      color:var(--white);
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+
+    .rotate-wrapper{
+      position:fixed;
+      inset:0;
+      width:100vw;
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      transform-origin:center center;
+      transition: transform 0.28s ease;
+      background: transparent;
+      overflow: visible !important;;
+      -webkit-backface-visibility: hidden;
+      backface-visibility: hidden;
+      -webkit-transform-style: preserve-3d;
+      transform-style: preserve-3d;
+    }
+
+    #innerContainer {
+      width:100%;
+      height:100%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .center {
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      box-sizing:border-box;
+      text-align:center;
+      flex-direction:column;
+    }
+
+    h1.title{
+      font-size:clamp(28px,6vw,56px);
+      margin:0 0 18px 0;
+      letter-spacing:0.5px;
+      font-weight:700;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.6);
+    }
+
+    .cta-block{max-width:760px;width:100%;}
+
+    .cta {
+      display:flex;
+      gap:18px;
+      align-items:center;
+      justify-content:center;
+      margin:18px 0;
+      flex-direction:column;
+    }
+
+    .cta p{
+      margin:0;
+      font-size:23px;
+    }
+
+    .btn-circle{
+      width:150px;
+      height:150px;
+      border-radius:999px;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:600;
+      cursor:pointer;
+      user-select:none;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.6);
+      border:3px solid var(--border-black);
+      background:var(--accent-green);
+      color:var(--white);
+      transition: transform .15s ease, box-shadow .15s;
+      font-size:20px;
+    }
+    .btn-circle:active{ transform: scale(.98); }
+    .btn-circle:hover{ transform: scale(1.04); }
+
+    .topics-wrap{
+      width:100%;
+      max-width:880px;
+      height: calc(100vh - 80px) !important; 
+      position:relative;
+      margin:0 auto;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      overflow:visible;
+  }
+
+
+    .topic-circle{
+      position:absolute;
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      box-sizing:border-box;
+      font-weight:600;
+      cursor:pointer;
+      border:3px solid var(--border-black);
+      background:var(--accent-green);
+      color:var(--white);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+      transition: transform .18s cubic-bezier(.2,.9,.3,1), opacity .2s;
+    }
+    .topic-circle:hover{ transform: scale(1.06); z-index:30; }
+
+    .topbar{
+      width:100%;
+      max-width:760px;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      margin-bottom:14px;
+      padding:0 6px;
+      box-sizing:border-box;
+    }
+    .link-back{
+      color:var(--white);
+      text-decoration:underline;
+      cursor:pointer;
+      font-size:20px;
+      background:transparent;
+      border:none;
+      padding:6px;
+    }
+
+    .modal-overlay{
+      position:fixed;inset:0;display:none;align-items:center;justify-content:center;z-index:1000;
+      background:rgba(0,0,0,0.6);
+    }
+    .modal{
+      width:100%;
+      max-width:720px;
+      border-radius:16px;
+      padding:20px;
+      box-sizing:border-box;
+      background:var(--accent-green);
+      border:3px solid var(--border-black);
+      color:var(--white);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.6);
+      transform: translateY(8px) scale(.98);
+      opacity:0;
+      transition: all 200ms ease;
+    }
+    #modalContent img {
+      display: block;
+      margin: 12px auto;
+      max-width: 80%;
+      height: auto;
+    }
+
+    .modal.open{ transform:translateY(0) scale(1); opacity:1; }
+    .modal h3{ margin:0 0 10px 0; font-size:24px; }
+    #modalContent {
+    font-size: 22px !important;
+    line-height: 1.55 !important;
+    opacity: 0.98;
+    }
+
+    .modal-close{
+      position:absolute;
+      right:12px;
+      top:12px;
+      width:36px;height:36px;border-radius:999px;
+      background:var(--white);
+      color:var(--border-black);
+      display:inline-flex;align-items:center;justify-content:center;
+      border:none;cursor:pointer;font-weight:700;
+      box-shadow:0 6px 14px rgba(0,0,0,0.5);
+    }
+
+    footer { margin-top:18px; color: rgba(255,255,255,0.6); font-size:14px; }
+
+    @media (max-width:540px){
+      .btn-circle{ width:200px;height:200px;font-size:18px; }
+      .topic-circle{ font-size:24px; }
+      .topics-wrap{ height:340px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div id="rotateWrap" class="rotate-wrapper">
+    <div id="innerContainer">
+      <main id="app" class="center" aria-live="polite">
+
+        <!-- HOME -->
+        <section id="homeView" class="center" style="display:flex;">
+          <div class="cta-block">
+            <h1 class="title">Auskunft über IZS?</h1>
+
+            <div class="cta">
+              <p>Auskunft über IZS auf <strong>Deutsch</strong>? – hier klicken</p>
+              <button id="btn-de" class="btn-circle">hier klicken</button>
+            </div>
+
+            <div class="cta" style="margin-top:14px;" dir="rtl">
+              <p style="direction:rtl;margin-bottom:8px;font-size:24px;">معلومات حول المركز باللغة <strong>العربية</strong؟ — اضغط هنا</p>
+              <button id="btn-ar" class="btn-circle">اضغط هنا</button>
+            </div>
+          </div>
+
+          <footer>© <span id="year"></span> – Hilfe-Portal</footer>
+        </section>
+
+        <!-- THEMEN -->
+        <section id="topicsView" style="display:none;width:100%;max-width:980px;">
+          <div class="topbar">
+            <button id="backBtn" class="link-back">← Zurück</button>
+            <h2 id="topicsTitle" style="margin:0;font-size:20px;font-weight:600;"></h2>
+            <div style="width:48px;"></div>
+          </div>
+
+          <div class="topics-wrap" id="topicsWrap"></div>
+
+          <footer style="text-align:center;margin-top:12px;color:rgba(255,255,255,0.6);font-size:13px;">Wähle ein Thema, um mehr zu erfahren</footer>
+        </section>
+
+      </main>
+    </div>
+
+    <!-- MODAL -->
+    <div id="modalOverlay" class="modal-overlay">
+      <div id="modalBox" class="modal">
+        <button id="closeModal" class="modal-close">✕</button>
+        <h3 id="modalTitle"></h3>
+        <div id="modalContent" style="margin-top:8px;"></div>
+      </div>
+    </div>
+
+  </div>
+
+
+<script>
+/* --- THEMEN-DATEN --- */
+const topics = [
+  {
+  id:1,
+  deTitle:"Islamische Eheschließung (Nikah)",
+  arTitle:"الزواج الإسلامي (النكاح)",
+  deInfo:
+    "Sie brauchen folgende Unterlagen:<br>1- Erweiterte Meldebescheinigung (vom Rathaus),<br>2- Kopie der Ausweise beider Partner.<br><br>Dann können Sie einen Termin per Email vereinbaren (Bitte fügen Sie eine Kopie aller Dokumente bei!):<br> info@iz-stuttgart.de<br><br>Oder scannen Sie den QR-Code, um die Email zu senden:<br><img src='./assets/QR_Nikah.png' alt='QR Code' style='max-width:220px; margin-top:12px;'>",
+  arInfo:
+    "لإجراء عقد الزواج الإسلامي يجب إحضار:<br> شهادة السكن الموسعة (Erweiterte Meldebescheinigung vom Rathaus) <br>ونسخ من بطاقات الهوية لكلا الزوجين.<br><br>  بعد ذلك يمكن ترتيب موعد عن طريق الإيميل (الرجاء إرفاق نسخة من المستندات في الإيميل):<br> info@iz-stuttgart.de <br><br> أو امسح رمز الـQR:<br><img src='./assets/QR_Nikah.png' alt='QR Code' style='max-width:220px; margin-top:12px;'>"
+},
+  {
+    id:2, deTitle:"Arabisch lernen für Kinder", arTitle:"تعليم اللغة العربية للأطفال",
+    deInfo:"Anmeldung erforderlich. Sie erreichen uns unter: 017684425320 (WhatsApp) ", arInfo:"التسجيل مطلوب, للتواصل:  (WhatsApp) 017684425320"
+  },
+  {
+    id:3, deTitle:"Quran lernen für Kinder", arTitle:"تعليم القرآن الكريم للأطفال",
+    deInfo:"Anmeldung erforderlich. Sie erreichen uns unter: 01716260309 (WhatsApp)", arInfo:"التسجيل مطلوب, للتواصل: (WhatsApp) 017684425320"
+  },
+  {
+    id:4, deTitle:"Vorträge des Imams", arTitle:"محاضرات الإمام",
+    deInfo:"Die Vorträge finden sonntags nach Salat Al-‘Asr statt (nur auf Arabisch).",
+    arInfo:"تقام المحاضرات كل يوم أحد بعد صلاة العصر مباشرة (باللغة العربية فقط)."
+  },
+  {
+    id:5, deTitle:"Fragen / Kontakt zum Imam", arTitle:"أسئلة / تواصل مع الإمام",
+    deInfo:"Senden Sie Ihr Feedback per E‑Mail: info@iz-stuttgart.de <br><br> Sie können Ihre Fragen direkt an den Imam senden (Nur auf Arabisch möglich).<br> Scannen Sie dafür einfach den QR‑Code: <img src='./assets/QR_Telegram.png' alt='QR Code' style='max-width:220px; margin-top:12px;'> <div style='margin-top:8px; font-size:16px; opacity:0.9; text-align:center;'>Nur Fragen auf <span style='font-weight:700;'>Arabisch</span> werden beantwortet</div>",
+    arInfo:"الرجاء إرسال الإقتراحات عبر البريد الإلكتروني: info@iz-stuttgart.de <br><br> للتواصل مع الإمام، الرجاء مسح الرمز وإرسال الأسئلة: <img src='./assets/QR_Telegram.png' alt='QR Code' style='max-width:220px; margin-top:12px;'>"
+  },
+  {
+    id: 6,
+    deTitle: "Gebetzeiten App",
+    arTitle: "تطبيق المواقيت",
+    deInfo:
+  "Sie können die App ganz einfach auf Ihr Smartphone herunterladen:<br><br>" +
+  "1️⃣ Laden Sie die App über den QR-Code herunter<br>" +
+  "2️⃣ Wählen Sie die Moschee: <strong>Omar Ibn Al-Khattab (IZS) – Stuttgart</strong> aus<br><br>" +
+
+  "<div style='display:flex; justify-content:center; gap:32px; margin-top:16px;'>" +
+
+    // Apple
+    "<div style='display:flex; flex-direction:column; align-items:center;'>" +
+      "<img src='./assets/QR_Apple.png' alt='App Store QR' style='max-width:160px;'>" +
+      "<div style='margin-top:8px; font-size:16px; opacity:0.9;'>App Store</div>" +
+    "</div>" +
+
+    // Android
+    "<div style='display:flex; flex-direction:column; align-items:center;'>" +
+      "<img src='./assets/QR_Android.png' alt='Google Play QR' style='max-width:160px;'>" +
+      "<div style='margin-top:8px; font-size:16px; opacity:0.9;'>Google Play</div>" +
+    "</div>" +
+
+  "</div>",
+  arInfo:
+    "يمكنك تحميل التطبيق بسهولة على هاتفك:<br><br>" +
+    "حمل التطبيق من خلال رمز ال QR في الأسفل<br>" +
+    "إختر مسجد -Omar Ibn Al-Khattab (IZS)-Stuttgart- <br>" +
+    
+    "<div style='display:flex; justify-content:center; gap:32px; margin-top:16px;'>" +
+
+    // Apple
+    "<div style='display:flex; flex-direction:column; align-items:center;'>" +
+      "<img src='./assets/QR_Apple.png' alt='App Store QR' style='max-width:160px;'>" +
+      "<div style='margin-top:8px; font-size:16px; opacity:0.9;'>App Store</div>" +
+    "</div>" +
+
+    // Android
+    "<div style='display:flex; flex-direction:column; align-items:center;'>" +
+      "<img src='./assets/QR_Android.png' alt='Google Play QR' style='max-width:160px;'>" +
+      "<div style='margin-top:8px; font-size:16px; opacity:0.9;'>Google Play</div>" +
+    "</div>" +
+
+  "</div>"
+}
+];
+
+/* Shortcuts */
+const homeView = document.getElementById('homeView');
+const topicsView = document.getElementById('topicsView');
+const topicsWrap = document.getElementById('topicsWrap');
+const topicsTitle = document.getElementById('topicsTitle');
+const backBtn = document.getElementById('backBtn');
+const yearSpan = document.getElementById('year');
+const btnDe = document.getElementById('btn-de');
+const btnAr = document.getElementById('btn-ar');
+
+const modalOverlay = document.getElementById('modalOverlay');
+const modalBox = document.getElementById('modalBox');
+const modalTitle = document.getElementById('modalTitle');
+const modalContent = document.getElementById('modalContent');
+const closeModal = document.getElementById('closeModal');
+
+let currentLang = null;
+yearSpan.textContent = new Date().getFullYear();
+
+/* --- BUTTONS --- */
+btnDe.addEventListener('click', () => openTopics('de'));
+btnAr.addEventListener('click', () => openTopics('ar'));
+
+backBtn.addEventListener('click', () => {
+  closeModalIfOpen();
+  topicsView.style.display = 'none';
+  homeView.style.display = 'flex';
+  document.documentElement.lang = 'de';
+  currentLang = null;
+  topicsWrap.innerHTML = '';
+  topicsWrap.classList.add('expanded-height');
+});
+
+/* --- MODAL HANDLING --- */
+function openModal(topic) {
+  const isAR = currentLang === 'ar';
+  modalTitle.textContent = isAR ? topic.arTitle : topic.deTitle;
+  modalContent.innerHTML = isAR
+    ? `<div dir="rtl">${topic.arInfo}</div>`
+    : `<div>${topic.deInfo}</div>`;
+  modalOverlay.style.display = 'flex';
+  requestAnimationFrame(()=> modalBox.classList.add('open'));
+}
+
+function closeModalIfOpen() {
+  if (modalOverlay.style.display === 'flex') {
+    modalBox.classList.remove('open');
+    setTimeout(()=>{
+      modalOverlay.style.display = 'none';
+      modalTitle.textContent = '';
+      modalContent.innerHTML = '';
+    },180);
+  }
+}
+
+closeModal.addEventListener('click', closeModalIfOpen);
+modalOverlay.addEventListener('click', (e)=>{ if(e.target===modalOverlay) closeModalIfOpen(); });
+
+/* --- SPRACHE / THEMEN SEITE --- */
+function openTopics(lang){
+  currentLang = lang;
+  homeView.style.display = 'none';
+  topicsView.style.display = 'block';
+
+  if (lang === 'ar') {
+    topicsTitle.textContent = 'اختر موضوعاً';
+    topicsWrap.setAttribute('dir','rtl');
+    document.documentElement.lang = 'ar';
+  } else {
+    topicsTitle.textContent = 'Themenübersicht';
+    topicsWrap.setAttribute('dir','ltr');
+    document.documentElement.lang = 'de';
+  }
+
+  renderTopicCircles();
+}
+
+/* ------------------------------------------------------------
+   ⭐ ERWEITERT: +100% Größe im Landscape-Modus (Themen-Seite)
+------------------------------------------------------------- */
+function renderTopicCircles(){
+  topicsWrap.innerHTML = '';
+
+  const cw = topicsWrap.clientWidth;
+  const ch = topicsWrap.clientHeight;
+
+  /* 👉 Erkennung: verdrehtes Gerät */
+  const isLandscape = window.innerWidth > window.innerHeight;
+
+  /* 👉 Wenn Landscape → alles ×2 (+100%) */
+  const scaleBoost = isLandscape ? 1.8 : 1;
+
+  const centerX = cw / 2;
+  const centerY = ch / 2;
+
+  /* radius + circleSize → dynamisch vergrößert */
+  const radius = Math.min(cw, ch) * 0.44 * scaleBoost;
+  const circleSize = Math.min(cw, ch) * 0.33 * scaleBoost * 0.98;
+
+  topics.forEach((t, i) => {
+    const angle = (i / topics.length) * Math.PI * 2 - Math.PI/2;
+
+    const x = centerX + radius * Math.cos(angle);
+    const y = centerY + radius * Math.sin(angle);
+
+    const btn = document.createElement('button');
+    btn.className = 'topic-circle';
+
+    btn.style.width = `${circleSize}px`;
+    btn.style.height = `${circleSize}px`;
+    // Schriftgröße im Kreis fest begrenzen, egal ob DE oder AR
+    const fontModifier = currentLang === 'ar' ? 0.190 : 0.130;
+    btn.style.fontSize = (circleSize * fontModifier) + "px";
+
+
+    btn.type = 'button';
+    btn.style.left = `${x}px`;
+    btn.style.top = `${y}px`;
+    btn.style.transform = 'translate(-50%,-50%)';
+
+    btn.innerHTML = currentLang==='ar'
+      ? `<div style="direction:rtl">${t.arTitle}</div>`
+      : `<div>${t.deTitle}</div>`;
+
+    btn.addEventListener('click', () => openModal(t));
+    topicsWrap.appendChild(btn);
+  });
+}
+
+/* --- AUTO ROTATION (unverändert außer Zentrier-Fix oben) --- */
+(function setupAutoRotation(){
+  const wrap = document.getElementById('rotateWrap');
+  const inner = document.getElementById('innerContainer');
+  if(!wrap || !inner) return;
+
+  function applyTransform(){
+    let angle = 0;
+    if (screen && screen.orientation && typeof screen.orientation.angle === 'number') {
+      angle = screen.orientation.angle;
+    } else if (typeof window.orientation === 'number') {
+      angle = window.orientation;
+    } else {
+      angle = (window.innerWidth >= window.innerHeight) ? 90 : 0;
+    }
+
+    angle = ((angle % 360) + 360) % 360;
+    const rotation = -angle;
+
+    inner.style.transform = 'none';
+    const box = inner.getBoundingClientRect();
+    const contentW = box.width || window.innerWidth;
+    const contentH = box.height || window.innerHeight;
+
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    const is90 = (angle === 90 || angle === 270);
+    const neededW = is90 ? contentH : contentW;
+    const neededH = is90 ? contentW : contentH;
+
+    const scaleFit = Math.min(vw / neededW, vh / neededH, 1);
+
+    const EXTRA_FACTOR = 1.6;
+    const HARD_CAP = 1.6;
+    const finalScale = is90 ? Math.min(scaleFit * EXTRA_FACTOR, HARD_CAP) : scaleFit;
+
+    wrap.style.transform = `rotate(${rotation}deg) scale(${finalScale})`;
+    wrap.style.overflow = (finalScale > scaleFit) ? 'auto' : 'hidden';
+  }
+
+  let t=null;
+  function scheduleApply(){
+    clearTimeout(t);
+    t=setTimeout(applyTransform,80);
+  }
+
+  applyTransform();
+  window.addEventListener('orientationchange', scheduleApply, {passive:true});
+  window.addEventListener('resize', scheduleApply);
+
+  if (screen.orientation && screen.orientation.addEventListener) {
+    try { screen.orientation.addEventListener('change', scheduleApply); } catch(e){}
+  }
+})();
+
+/* --- Re-render Topics nach Rotation --- */
+window.addEventListener('resize', () => {
+  clearTimeout(window._renderTopicTimeout);
+  window._renderTopicTimeout = setTimeout(()=> {
+    if (currentLang) renderTopicCircles();
+  }, 240);
+});
+</script>
