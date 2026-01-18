@@ -1,4 +1,4 @@
-This README provides an overview and setup instructions for the **IZS Digital Info-Portal**. This project is specifically engineered for a Samsung Tablet (800x1280 px) to serve as a standalone information kiosk.
+This README provides an overview and setup instructions for the **IZS Digital Info-Portal**. This project is specifically engineered for a Tablet to serve as a standalone information kiosk.
 
 ---
 
@@ -8,8 +8,7 @@ A modern, touch-optimized kiosk application designed to provide visitors with qu
 
 ### 📱 Hardware Specification
 
-- **Target Device:** Samsung Tablet (or similar)
-- **Resolution:** 800 x 1280 px (Portrait Mode)
+- **Target Device:** Tablet
 - **Platform:** Optimized for **Fully Kiosk Browser** or **XOGO Decision Signage**.
 
 ### ✨ Key Features

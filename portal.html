@@ -33,8 +33,8 @@
       transform: scale(0.9) translateY(20px);
       opacity: 0;
     }
-    .qr-img { width: clamp(160px, 17vmin, 324px); display: block; margin: clamp(14px, 1.4vmin, 27px) auto 5px auto; border: 1px solid #eee; border-radius: 16px; }
-    .store-badge { width: clamp(140px, 14vmin, 270px); border-radius: 14px; }
+    .qr-img { width: clamp(160px, 17vmin, 324px); display: block; margin: clamp(14px, 1.4vmin, 27px) auto clamp(3px, 0.35vmin, 7px) auto; border: 1px solid #eee; border-radius: clamp(10px, 1.1vmin, 22px); }
+    .store-badge { width: clamp(140px, 14vmin, 270px); border-radius: clamp(9px, 1vmin, 19px); }
     
     /* Green overlay for screensaver transition */
     .green-overlay {
@@ -128,10 +128,10 @@
 <body>
   <div class="green-overlay" id="greenOverlay"></div>
   <div class="white-overlay" id="whiteOverlay"></div>
-  <div class="container content-wrapper" id="content" style="padding: 30px 50px 20px 50px;">
-    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 70px;">
+  <div class="container content-wrapper" id="content" style="padding: clamp(20px, 2.1vmin, 40px) clamp(35px, 3.5vmin, 68px);">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: clamp(45px, 4.8vmin, 95px);">
       <a href="language.html" class="back-nav" onclick="navigateTo(event, this.href)">← Zurück / Back</a>
-      <img src="./assets/IZS_Logo_Black.png" alt="Logo" style="height: 80px;">
+      <img src="./assets/IZS_Logo_Black.png" alt="Logo" style="height: clamp(55px, 5.5vmin, 108px);">
     </div>
 
     <div id="grid" class="topics-grid"></div>
@@ -139,10 +139,10 @@
 
   <div id="modal" class="modal-overlay" onclick="closeModal()">
     <div class="modal-content" onclick="event.stopPropagation()">
-      <h2 id="mTitle" style="color: var(--primary); font-size: 38px; margin-top:0; border-bottom: 2px solid var(--primary-light); padding-bottom: 15px;"></h2>
-      <div id="mBody" style="font-size: 26px; line-height: 1.6; margin-top: 25px;"></div>
+      <h2 id="mTitle" style="color: var(--primary); font-size: clamp(26px, 2.7vmin, 52px); margin-top:0; border-bottom: clamp(1.5px, 0.15vmin, 3px) solid var(--primary-light); padding-bottom: clamp(10px, 1vmin, 20px);"></h2>
+      <div id="mBody" style="font-size: clamp(18px, 1.8vmin, 35px); line-height: 1.6; margin-top: clamp(16px, 1.7vmin, 34px);"></div>
       <button onclick="closeModal()" 
-              style="margin-top: 40px; width: 100%; padding: 20px; border-radius: 15px; border: none; background: var(--primary); color: white; font-size: 22px; font-weight: 700;">
+              style="margin-top: clamp(26px, 2.7vmin, 54px); width: 100%; padding: clamp(14px, 1.4vmin, 27px); border-radius: clamp(10px, 1vmin, 20px); border: none; background: var(--primary); color: white; font-size: clamp(15px, 1.5vmin, 30px); font-weight: 700;">
         Schließen / Close
       </button>
     </div>
