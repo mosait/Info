@@ -9,13 +9,13 @@
     if (sessionStorage.getItem('fromScreensaver')) {
       document.documentElement.style.background = 'linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48)';
       document.documentElement.style.backgroundSize = '400% 400%';
-      document.documentElement.style.transition = 'background 0.6s cubic-bezier(0.16, 1, 0.3, 1)';
+      document.documentElement.style.transition = 'background 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
     }
   </script>
   <style>
     /* Perfect seamless transition: body morphs from green to white */
     body {
-      transition: background 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+       transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1);
     }
     body.from-green {
       background: linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48) !important;
@@ -92,12 +92,12 @@
     .content-wrapper.animate-in.start h1,
     .content-wrapper.animate-in.start img,
     .content-wrapper.animate-in.start .lang-card {
-      animation: slideUpFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: slideUpFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
     }
     .content-wrapper.animate-in.start h1 { animation-delay: 0s; }
-    .content-wrapper.animate-in.start img { animation-delay: 0.06s; }
-    .content-wrapper.animate-in.start .lang-card:first-of-type { animation-delay: 0.12s; }
-    .content-wrapper.animate-in.start .lang-card:last-of-type { animation-delay: 0.18s; }
+    .content-wrapper.animate-in.start img { animation-delay: 0.04s; }
+    .content-wrapper.animate-in.start .lang-card:first-of-type { animation-delay: 0.08s; }
+    .content-wrapper.animate-in.start .lang-card:last-of-type { animation-delay: 0.12s; }
     
     /* Prevent flash: if fromScreensaver flag exists, body starts green via inline style */
     body.instant-green {
@@ -137,24 +137,24 @@
   <div class="green-overlay" id="greenOverlay"></div>
   <div class="white-overlay" id="whiteOverlay"></div>
   <div class="container content-wrapper" id="content" style="justify-content: center; align-items: center;">
-    <div class="container" style="justify-content: center; align-items: center; padding-top: 15px;">
-      <h1 style="font-size: 48px; margin-bottom: 60px; color: var(--primary); text-align: center;">
+    <div class="container" style="justify-content: center; align-items: center; padding-top: 1vmin;">
+      <h1 style="font-size: clamp(32px, 3.4vmin, 65px); margin-bottom: clamp(40px, 4.2vmin, 81px); color: var(--primary); text-align: center;">
         Assalamu alaykum<br>السلام عليكم
       </h1>
 
-    <img src="./assets/IZS_Logo_Black.png" alt="Logo" style="width: 300px; margin-bottom: 40px;">
+    <img src="./assets/IZS_Logo_Black.png" alt="Logo" style="width: clamp(200px, 21vmin, 405px); margin-bottom: clamp(27px, 2.8vmin, 54px);">
     
-    <div style="display: flex; gap: 40px;">
+    <div style="display: flex; gap: clamp(27px, 2.8vmin, 54px); justify-content: center;">
       <a href="portal.html?lang=de" class="lang-card" onclick="navigateTo(event, this.href)">
-        <div style="font-size: 100px; margin-bottom: 20px;">DE</div>
-        <h2 style="font-size: 40px; margin: 0;">Deutsch</h2>
-        <p style="color: var(--text-muted); font-size: 22px;">Weiter auf Deutsch</p>
+        <div style="font-size: clamp(65px, 7vmin, 135px); margin-bottom: clamp(14px, 1.4vmin, 27px);">DE</div>
+        <h2 style="font-size: clamp(27px, 2.8vmin, 54px); margin: 0;">Deutsch</h2>
+        <p style="color: var(--text-muted); font-size: clamp(16px, 1.6vmin, 30px);">Weiter auf Deutsch</p>
       </a>
 
       <a href="portal.html?lang=ar" class="lang-card" onclick="navigateTo(event, this.href)">
-        <div style="font-size: 100px; margin-bottom: 20px;">AR</div>
-        <h2 style="font-size: 40px; margin: 0;" dir="rtl">العربية</h2>
-        <p style="color: var(--text-muted); font-size: 22px;" dir="rtl">الاستمرار باللغة العربية</p>
+        <div style="font-size: clamp(65px, 7vmin, 135px); margin-bottom: clamp(14px, 1.4vmin, 27px);">AR</div>
+        <h2 style="font-size: clamp(27px, 2.8vmin, 54px); margin: 0;" dir="rtl">العربية</h2>
+        <p style="color: var(--text-muted); font-size: clamp(16px, 1.6vmin, 30px);" dir="rtl">الاستمرار باللغة العربية</p>
       </a>
     </div>
   </div>

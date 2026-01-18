@@ -13,7 +13,7 @@
       z-index: 100;
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .transition-overlay.active {
       opacity: 1;
@@ -41,12 +41,12 @@
     .screensaver-bg.exiting .logo-main,
     .screensaver-bg.exiting .pulse-text,
     .screensaver-bg.exiting .click-hint {
-      transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1), 
-                  transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-                  filter 0.25s ease;
+      transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1), 
+                  transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
+                  filter 0.15s ease;
       opacity: 0;
-      transform: scale(1.05) translateY(-15px);
-      filter: blur(3px);
+      transform: scale(1.03) translateY(-10px);
+      filter: blur(2px);
     }
     .screensaver-bg.exiting .logo-main { transition-delay: 0s; }
     .screensaver-bg.exiting .pulse-text:first-of-type { transition-delay: 0.03s; }
@@ -82,14 +82,14 @@
     .screensaver-bg.entering.animate .click-hint { transition-delay: 0.18s; opacity: 0.8; }
     
     .logo-main {
-      width: 280px;
-      margin-bottom: 40px;
+      width: clamp(190px, 20vmin, 378px);
+      margin-bottom: clamp(27px, 2.8vmin, 54px);
       filter: drop-shadow(0 4px 12px rgba(0,0,0,0.3));
     }
     .click-hint {
-      margin-top: 60px;
+      margin-top: clamp(40px, 4.2vmin, 81px);
       opacity: 0.8;
-      font-size: 24px;
+      font-size: clamp(18px, 1.7vmin, 32px);
       font-weight: 300;
     }
   </style>
@@ -135,7 +135,7 @@
       // The language page will continue the reveal
       setTimeout(() => {
         window.location.href = 'language.html';
-      }, 250);
+      }, 150);
     }
   </script>
 </body>
