@@ -33,8 +33,36 @@
       transform: scale(0.9) translateY(20px);
       opacity: 0;
     }
-    .qr-img { width: clamp(160px, 17vmin, 324px); display: block; margin: clamp(14px, 1.4vmin, 27px) auto clamp(3px, 0.35vmin, 7px) auto; border: 1px solid #eee; border-radius: clamp(10px, 1.1vmin, 22px); }
-    .store-badge { width: clamp(140px, 14vmin, 270px); border-radius: clamp(9px, 1vmin, 19px); }
+    .qr-img { width: clamp(140px, 17vmin, 324px); display: block; margin: clamp(14px, 1.4vmin, 27px) auto clamp(3px, 0.35vmin, 7px) auto; border: 1px solid #eee; border-radius: clamp(10px, 1.1vmin, 22px); }
+    .store-badge { width: clamp(120px, 14vmin, 270px); border-radius: clamp(9px, 1vmin, 19px); }
+    
+    /* Responsive modal text */
+    .modal-text-sm { font-size: clamp(14px, 1.4vmin, 20px); }
+    .modal-text-md { font-size: clamp(16px, 1.6vmin, 22px); }
+    .modal-text-lg { font-size: clamp(20px, 2vmin, 32px); }
+    .modal-phone { font-size: clamp(22px, 2.4vmin, 32px); color: var(--primary); }
+    .modal-section { font-size: clamp(18px, 1.9vmin, 22px); color: var(--primary); }
+    .modal-hint { font-size: clamp(13px, 1.3vmin, 18px); opacity: 0.8; }
+    .modal-qr-label { margin-top: 2px; font-size: clamp(14px, 1.4vmin, 18px); opacity: 0.8; }
+    .modal-store-label { margin-top: 4px; font-size: clamp(12px, 1.2vmin, 16px); opacity: 0.8; }
+    .modal-warning { margin-top: 12px; background: #fff3cd; padding: 10px 16px; border-radius: 8px; font-size: clamp(14px, 1.5vmin, 20px); text-align: center; }
+    .modal-box { padding: 16px 20px; border-radius: 12px; margin-bottom: 16px; }
+    .modal-box-title { font-size: clamp(16px, 1.7vmin, 22px); color: var(--primary); }
+    .modal-box-content { margin-top: 8px; font-size: clamp(14px, 1.5vmin, 18px); }
+    
+    @media screen and (max-width: 600px) {
+      .modal-phone { font-size: 20px; }
+      .modal-section { font-size: 16px; }
+      .modal-hint { font-size: 12px; }
+      .modal-qr-label { font-size: 13px; }
+      .modal-store-label { font-size: 11px; }
+      .modal-warning { font-size: 13px; padding: 8px 12px; }
+      .modal-box { padding: 12px 16px; margin-bottom: 12px; }
+      .modal-box-title { font-size: 15px; }
+      .modal-box-content { font-size: 13px; }
+      .qr-img { width: 140px !important; }
+      .store-badge { width: 110px !important; }
+    }
     
     /* Green overlay for screensaver transition */
     .green-overlay {
@@ -210,22 +238,22 @@
           "2️⃣ Kopie der Ausweise beider Partner<br><br>" +
           "Termin per E-Mail vereinbaren:<br>" +
           "<strong style='color: var(--primary);'>info@iz-stuttgart.de</strong><br>" +
-          "<span style='font-size:20px; opacity:0.8;'>(Bitte Kopie aller Dokumente beifügen)</span><br><br>" +
+          "<span class='modal-hint'>(Bitte Kopie aller Dokumente beifügen)</span><br><br>" +
           "Oder QR-Code scannen:<br>" +
           "<div style='display:flex; flex-direction:column; align-items:center;'>" +
             "<img src='./assets/QR_Nikah.png' class='qr-img'>" +
-            "<div style='margin-top:2px; font-size:18px; opacity:0.8;'>E-Mail senden (Bitte alle Dokumente beifügen)</div>" +
+            "<div class='modal-qr-label'>E-Mail senden (Bitte alle Dokumente beifügen)</div>" +
           "</div>",
         arInfo: "لإجراء عقد الزواج الإسلامي يجب إحضار:<br>" +
-          "1️⃣ شهادة السكن الموسعة <br><span style='font-size:20px; opacity:0.8;'>(Erweiterte Meldebescheinigung vom Rathaus)</span><br>" +
+          "1️⃣ شهادة السكن الموسعة <br><span class='modal-hint'>(Erweiterte Meldebescheinigung vom Rathaus)</span><br>" +
           "2️⃣ نسخ من بطاقات الهوية لكلا الزوجين <br><br>" +
           "لترتيب موعد عبر البريد الإلكتروني:<br>" +
           "<strong style='color: var(--primary);'>info@iz-stuttgart.de</strong><br>" +
-          "<span style='font-size:20px; opacity:0.8;'>(الرجاء إرفاق نسخة من المستندات)</span><br><br>" +
+          "<span class='modal-hint'>(الرجاء إرفاق نسخة من المستندات)</span><br><br>" +
           "أو امسح رمز الـ QR:<br>" +
           "<div style='display:flex; flex-direction:column; align-items:center;'>" +
             "<img src='./assets/QR_Nikah.png' class='qr-img'>" +
-            "<div style='margin-top:2px; font-size:18px; opacity:0.8;'>إرسال إيميل (الرجاء إرفاق نسخة من المستندات)</div>" +
+            "<div class='modal-qr-label'>إرسال إيميل (الرجاء إرفاق نسخة من المستندات)</div>" +
           "</div>"
       },
             { 
@@ -236,27 +264,27 @@
         deInfo: "Wie viele Moscheen in Deutschland nutzen wir die Mawaqit App.<br><br>App ganz einfach herunterladen:<br>" +
           "1️⃣ App über QR-Code herunterladen<br>" +
           "2️⃣ Moschee auswählen: <strong style='color: var(--primary);'>Omar Ibn Al-Khattab (IZS) – Stuttgart</strong><br><br>" +
-          "<div style='display:flex; justify-content:center; gap:32px; margin-top:8px;'>" +
+          "<div style='display:flex; justify-content:center; gap:24px; margin-top:8px; flex-wrap:wrap;'>" +
             "<div style='display:flex; flex-direction:column; align-items:center;'>" +
               "<img src='./assets/QR_Apple.png' class='store-badge'>" +
-              "<div style='margin-top:4px; font-size:16px; opacity:0.8;'>App Store</div>" +
+              "<div class='modal-store-label'>App Store</div>" +
             "</div>" +
             "<div style='display:flex; flex-direction:column; align-items:center;'>" +
               "<img src='./assets/QR_Android.png' class='store-badge'>" +
-              "<div style='margin-top:4px; font-size:16px; opacity:0.8;'>Google Play</div>" +
+              "<div class='modal-store-label'>Google Play</div>" +
             "</div>" +
           "</div>",
         arInfo: "مثل العديد من المساجد في ألمانيا، نستخدم تطبيق Mawaqit.<br><br>حمّل التطبيق بسهولة على هاتفك:<br>" +
           "1️⃣ حمّل التطبيق من خلال رمز الـ QR<br>" +
           "2️⃣ اختر المسجد: <strong style='color: var(--primary);'>Omar Ibn Al-Khattab (IZS) Stuttgart</strong><br><br>" +
-          "<div style='display:flex; justify-content:center; gap:32px; margin-top:8px;'>" +
+          "<div style='display:flex; justify-content:center; gap:24px; margin-top:8px; flex-wrap:wrap;'>" +
             "<div style='display:flex; flex-direction:column; align-items:center;'>" +
               "<img src='./assets/QR_Apple.png' class='store-badge'>" +
-              "<div style='margin-top:4px; font-size:16px; opacity:0.8;'>App Store</div>" +
+              "<div class='modal-store-label'>App Store</div>" +
             "</div>" +
             "<div style='display:flex; flex-direction:column; align-items:center;'>" +
               "<img src='./assets/QR_Android.png' class='store-badge'>" +
-              "<div style='margin-top:4px; font-size:16px; opacity:0.8;'>Google Play</div>" +
+              "<div class='modal-store-label'>Google Play</div>" +
             "</div>" +
           "</div>"
       },
@@ -265,43 +293,43 @@
         icon: "🔤", 
         deTitle: "Arabisch lernen für Kinder", 
         arTitle: "تعليم اللغة العربية للأطفال", 
-        deInfo: "Anmeldung erforderlich.<br><br>Sie erreichen uns unter:<br><strong style='font-size:32px; color: var(--primary);'>+49 176 84425320</strong><br><span style='opacity:0.8;'>(WhatsApp)</span>", 
-        arInfo: "التسجيل مطلوب.<br><br>للتواصل:<br><strong style='font-size:32px; color: var(--primary);' dir='ltr'>+49 176 84425320</strong><br><span style='opacity:0.8;'>(WhatsApp)</span>" 
+        deInfo: "Anmeldung erforderlich.<br><br>Sie erreichen uns unter:<br><strong class='modal-phone'>+49 176 84425320</strong><br><span class='modal-hint'>(WhatsApp)</span>", 
+        arInfo: "التسجيل مطلوب.<br><br>للتواصل:<br><strong class='modal-phone' dir='ltr'>+49 176 84425320</strong><br><span class='modal-hint'>(WhatsApp)</span>" 
       },
       { 
         id: 4, 
         icon: "📖", 
         deTitle: "Quran lernen für<br>Kinder", 
         arTitle: "تعليم القرآن الكريم للأطفال", 
-        deInfo: "Anmeldung erforderlich.<br><br>Sie erreichen uns unter:<br><strong style='font-size:32px; color: var(--primary);'>+49 171 6260309</strong><br><span style='opacity:0.8;'>(WhatsApp)</span>", 
-        arInfo: "التسجيل مطلوب.<br><br>للتواصل:<br><strong style='font-size:32px; color: var(--primary);' dir='ltr'>+49 171 6260309</strong><br><span style='opacity:0.8;'>(WhatsApp)</span>" 
+        deInfo: "Anmeldung erforderlich.<br><br>Sie erreichen uns unter:<br><strong class='modal-phone'>+49 171 6260309</strong><br><span class='modal-hint'>(WhatsApp)</span>", 
+        arInfo: "التسجيل مطلوب.<br><br>للتواصل:<br><strong class='modal-phone' dir='ltr'>+49 171 6260309</strong><br><span class='modal-hint'>(WhatsApp)</span>" 
       },
       { 
         id: 5, 
         icon: "🎤", 
         deTitle: "Vorträge", 
         arTitle: "محاضرات", 
-        deInfo: "<strong style='color: var(--primary);'>🗣️ Arabisch vom Imam:</strong><br>" +
+        deInfo: "<strong class='modal-section'>🗣️ Arabisch vom Imam:</strong><br>" +
           "1. Freitag nach dem Maghreb Gebet<br>" +
           "2. Samstag nach dem Maghreb Gebet<br>" +
           "3. Sonntag nach dem Asr Gebet<br><br>" +
-          "<strong style='color: var(--primary);'>🗣️ Deutsch IZS Connect Jugendgruppe:</strong><br>" +
+          "<strong class='modal-section'>🗣️ Deutsch IZS Connect Jugendgruppe:</strong><br>" +
           "• Sonntag um 13:00 Uhr<br><br>" +
-          "<strong style='color: var(--primary);'>📢 WhatsApp Kanal beitreten:</strong><br>" +
+          "<strong class='modal-section'>📢 WhatsApp Kanal beitreten:</strong><br>" +
           "<div style='display:flex; flex-direction:column; align-items:center;'>" +
             "<img src='./assets/QR_Whatsapp_Channel.png' class='qr-img'>" +
-            "<div style='margin-top:2px; font-size:18px; opacity:0.8;'>IZS Aktuell</div>" +
+            "<div class='modal-qr-label'>IZS Aktuell</div>" +
           "</div>", 
-        arInfo: "<strong style='color: var(--primary);'>🗣️ محاضرات الإمام بالعربية:</strong><br>" +
+        arInfo: "<strong class='modal-section'>🗣️ محاضرات الإمام بالعربية:</strong><br>" +
           "١. الجمعة بعد صلاة المغرب<br>" +
           "٢. السبت بعد صلاة المغرب<br>" +
           "٣. الأحد بعد صلاة العصر<br><br>" +
-          "<strong style='color: var(--primary);'>🗣️ محاضرات بالألمانية مجموعة شباب IZS Connect:</strong><br>" +
+          "<strong class='modal-section'>🗣️ محاضرات بالألمانية مجموعة شباب IZS Connect:</strong><br>" +
           "• كل يوم أحد الساعة 13:00<br><br>" +
-          "<strong style='color: var(--primary);'>📢 انضم لقناة الواتساب:</strong><br>" +
+          "<strong class='modal-section'>📢 انضم لقناة الواتساب:</strong><br>" +
           "<div style='display:flex; flex-direction:column; align-items:center;'>" +
             "<img src='./assets/QR_Whatsapp_Channel.png' class='qr-img'>" +
-            "<div style='margin-top:2px; font-size:18px; opacity:0.8;'>IZS Aktuell</div>" +
+            "<div class='modal-qr-label'>IZS Aktuell</div>" +
           "</div>" 
       },
       { 
@@ -309,37 +337,37 @@
         icon: "💬", 
         deTitle: "Kontakt zur Moschee /<br>Fragen an den Imam", 
         arTitle: "التواصل مع المسجد \\\ <br>أسئلة إلى الإمام", 
-        deInfo: "<div style='background: var(--primary-light); padding: 16px 20px; border-radius: 12px; margin-bottom: 20px;'>" +
-          "<strong style='color: var(--primary); font-size: 22px;'>📞 Allgemeiner Kontakt</strong><br>" +
-          "<div style='margin-top: 8px;'>info@iz-stuttgart.de<br>www.izstuttgart.de<br><strong>+49 711 5590219</strong></div>" +
+        deInfo: "<div class='modal-box' style='background: var(--primary-light);'>" +
+          "<strong class='modal-box-title'>📞 Allgemeiner Kontakt</strong><br>" +
+          "<div class='modal-box-content'>info@iz-stuttgart.de<br>www.izstuttgart.de<br><strong>+49 711 5590219</strong></div>" +
           "</div>" +
-          "<div style='background: #f0f0f0; padding: 16px 20px; border-radius: 12px; margin-bottom: 20px;'>" +
-          "<strong style='color: var(--primary); font-size: 22px;'>👔 Vorstandsvorsitzende</strong><br>" +
-          "<div style='margin-top: 8px;'>A. Eldamaty<br><strong>+49 175 2989000</strong></div>" +
+          "<div class='modal-box' style='background: #f0f0f0;'>" +
+          "<strong class='modal-box-title'>👔 Vorstandsvorsitzende</strong><br>" +
+          "<div class='modal-box-content'>A. Eldamaty<br><strong>+49 175 2989000</strong></div>" +
           "</div>" +
-          "<div style='border-top: 2px solid #eee; padding-top: 20px;'>" +
-          "<strong style='color: var(--primary); font-size: 22px;'>🕌 Fragen an den Imam</strong><br>" +
+          "<div style='border-top: 2px solid #eee; padding-top: 16px;'>" +
+          "<strong class='modal-box-title'>🕌 Fragen an den Imam</strong><br>" +
           "<div style='display:flex; flex-direction:column; align-items:center;'>" +
-            "<img src='./assets/QR_Telegram.png' class='qr-img' style='width: 180px;'>" +
-            "<div style='margin-top:2px; font-size:18px; opacity:0.8;'>Telegram</div>" +
+            "<img src='./assets/QR_Telegram.png' class='qr-img' style='width: clamp(140px, 16vmin, 180px);'>" +
+            "<div class='modal-qr-label'>Telegram</div>" +
           "</div>" +
-          "<div style='margin-top:12px; background: #fff3cd; padding: 10px 16px; border-radius: 8px; font-size:20px; text-align:center;'>⚠️ Nur Fragen auf <strong>Arabisch</strong> werden beantwortet</div>" +
+          "<div class='modal-warning'>⚠️ Nur Fragen auf <strong>Arabisch</strong> werden beantwortet</div>" +
           "</div>",
-        arInfo: "<div style='background: var(--primary-light); padding: 16px 20px; border-radius: 12px; margin-bottom: 20px;'>" +
-          "<strong style='color: var(--primary); font-size: 22px;'>📞 التواصل العام</strong><br>" +
-          "<div style='margin-top: 8px;'>info@iz-stuttgart.de<br>www.izstuttgart.de<br><strong dir='ltr'>+49 711 5590219</strong></div>" +
+        arInfo: "<div class='modal-box' style='background: var(--primary-light);'>" +
+          "<strong class='modal-box-title'>📞 التواصل العام</strong><br>" +
+          "<div class='modal-box-content'>info@iz-stuttgart.de<br>www.izstuttgart.de<br><strong dir='ltr'>+49 711 5590219</strong></div>" +
           "</div>" +
-          "<div style='background: #f0f0f0; padding: 16px 20px; border-radius: 12px; margin-bottom: 20px;'>" +
-          "<strong style='color: var(--primary); font-size: 22px;'>👔 رئيس مجلس الإدارة</strong><br>" +
-          "<div style='margin-top: 8px;'>A. Eldamaty<br><strong dir='ltr'>+49 175 2989000</strong></div>" +
+          "<div class='modal-box' style='background: #f0f0f0;'>" +
+          "<strong class='modal-box-title'>👔 رئيس مجلس الإدارة</strong><br>" +
+          "<div class='modal-box-content'>A. Eldamaty<br><strong dir='ltr'>+49 175 2989000</strong></div>" +
           "</div>" +
-          "<div style='border-top: 2px solid #eee; padding-top: 20px;'>" +
-          "<strong style='color: var(--primary); font-size: 22px;'>🕌 أسئلة إلى الإمام</strong><br>" +
+          "<div style='border-top: 2px solid #eee; padding-top: 16px;'>" +
+          "<strong class='modal-box-title'>🕌 أسئلة إلى الإمام</strong><br>" +
           "<div style='display:flex; flex-direction:column; align-items:center;'>" +
-            "<img src='./assets/QR_Telegram.png' class='qr-img' style='width: 180px;'>" +
-            "<div style='margin-top:2px; font-size:18px; opacity:0.8;'>تليغرام</div>" +
+            "<img src='./assets/QR_Telegram.png' class='qr-img' style='width: clamp(140px, 16vmin, 180px);'>" +
+            "<div class='modal-qr-label'>تليغرام</div>" +
           "</div>" +
-          "<div style='margin-top:12px; background: #fff3cd; padding: 10px 16px; border-radius: 8px; font-size:20px; text-align:center;'>⚠️ الرد باللغة <strong>العربية</strong> فقط</div>" +
+          "<div class='modal-warning'>⚠️ الرد باللغة <strong>العربية</strong> فقط</div>" +
           "</div>"
       }
     ];
