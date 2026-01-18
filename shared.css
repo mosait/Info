@@ -49,13 +49,13 @@ body {
 
 .pulse-text {
   animation: none; /* keep language lines still by default */
-  font-size: 42px; font-weight: 700; margin: 20px;
+  font-size: 57px; font-weight: 700; margin: 27px;
 }
 
 /* Subtle call-to-action pulse for the click hint only */
 .click-hint {
   animation: subtlePulse 4.5s ease-in-out infinite;
-  font-size: 24px; font-weight: 300;
+  font-size: 32px; font-weight: 300;
 }
 
 @keyframes subtlePulse {
@@ -91,13 +91,13 @@ body {
 /* Layouts */
 .container {
   width: 100%; height: 100%;
-  padding: 50px;
+  padding: 68px;
   display: flex; flex-direction: column;
 }
 
 .lang-card {
   background: rgba(255,255,255,0.85);
-  width: 340px; height: 430px;
+  width: 460px; height: 580px;
   border-radius: var(--radius);
   box-shadow: 0 8px 32px 0 rgba(26,93,72,0.18), 0 1.5px 8px 0 rgba(0,0,0,0.10);
   display: flex; flex-direction: column;
@@ -149,7 +149,7 @@ body {
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(3, 1fr);
-  gap: 32px;
+  gap: 43px;
   flex-grow: 1;
 }
 
@@ -158,8 +158,8 @@ body {
   border-radius: var(--radius);
   box-shadow: 0 8px 32px 0 rgba(26,93,72,0.15), 0 2px 12px 0 rgba(0,0,0,0.08);
   display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 24px 20px; text-align: center;
-  font-size: 26px; font-weight: 700;
+  padding: 32px 27px; text-align: center;
+  font-size: 35px; font-weight: 700;
   color: var(--primary);
   border: none;
   border-bottom: 5px solid var(--primary);
@@ -196,8 +196,8 @@ body {
   50% { background-position: 100% 50%; }
 }
 .topic-card .icon {
-  font-size: 48px;
-  margin-bottom: 12px;
+  font-size: 65px;
+  margin-bottom: 16px;
   filter: drop-shadow(0 2px 4px rgba(26,93,72,0.2));
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
@@ -219,11 +219,11 @@ body {
   background: linear-gradient(90deg, var(--primary-light) 60%, #fff 100%);
   color: var(--primary);
   border: none;
-  padding: 18px 38px;
+  padding: 24px 51px;
   border-radius: 50px;
   font-weight: 700;
   text-decoration: none;
-  font-size: 22px;
+  font-size: 30px;
   box-shadow: 0 4px 12px 0 rgba(26,93,72,0.12);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, background 0.3s ease;
   position: relative;
