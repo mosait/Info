@@ -301,7 +301,7 @@ body {
   body {
     max-width: 100%;
     max-height: 100%;
-    overflow-y: auto;
+    overflow: hidden;
   }
   
   .container {
@@ -367,7 +367,7 @@ body {
     width: 90vw !important;
     max-width: 500px !important;
     max-height: 85vh !important;
-    overflow-y: auto !important;
+    overflow: hidden !important;
     padding: 24px !important;
     border-radius: 20px !important;
   }
@@ -380,13 +380,12 @@ body {
   }
   
   body {
-    overflow-y: auto;
+    overflow: hidden;
   }
   
   .container {
     padding: 16px;
-    height: auto;
-    min-height: 100vh;
+    height: 100%;
   }
   
   /* Screensaver */
@@ -523,12 +522,11 @@ body {
 /* Landscape phones - ensure usability */
 @media screen and (max-height: 500px) and (orientation: landscape) {
   body {
-    overflow-y: auto;
+    overflow: hidden;
   }
   
   .container {
-    height: auto;
-    min-height: 100vh;
+    height: 100%;
   }
   
   .screensaver-bg {
