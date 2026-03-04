@@ -309,14 +309,22 @@ body {
   }
   
   /* Screensaver */
-  .pulse-text {
-    font-size: 28px;
-    margin: 16px;
+  .title-main {
+    font-size: 48px;
   }
-  
-  .click-hint {
-    font-size: 18px;
-    margin-top: 40px;
+  .title-sub {
+    font-size: 28px;
+  }
+  .touch-icon-wrapper {
+    width: 80px;
+    height: 80px;
+  }
+  .touch-icon svg {
+    width: 40px;
+    height: 40px;
+  }
+  .touch-label {
+    font-size: 16px;
   }
   
   /* Language cards - side by side but smaller */
@@ -390,14 +398,22 @@ body {
   }
   
   /* Screensaver */
-  .pulse-text {
-    font-size: 22px;
-    margin: 12px 16px;
+  .title-main {
+    font-size: 36px;
   }
-  
-  .click-hint {
-    font-size: 16px;
-    margin-top: 32px;
+  .title-sub {
+    font-size: 22px;
+  }
+  .touch-icon-wrapper {
+    width: 60px;
+    height: 60px;
+  }
+  .touch-icon svg {
+    width: 32px;
+    height: 32px;
+  }
+  .touch-label {
+    font-size: 14px;
   }
   
   /* Language cards - STAY SIDE BY SIDE but smaller */
@@ -480,13 +496,22 @@ body {
 
 /* Very small phones (max 380px) */
 @media screen and (max-width: 380px) {
-  .pulse-text {
-    font-size: 18px;
-    margin: 10px 12px;
+  .title-main {
+    font-size: 30px;
   }
-  
-  .click-hint {
-    font-size: 14px;
+  .title-sub {
+    font-size: 18px;
+  }
+  .touch-icon-wrapper {
+    width: 50px;
+    height: 50px;
+  }
+  .touch-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+  .touch-label {
+    font-size: 12px;
   }
   
   /* Language cards - even smaller but still side by side */
