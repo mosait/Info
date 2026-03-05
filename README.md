@@ -13,11 +13,10 @@ A modern, touch-optimized kiosk application designed to provide visitors with qu
 
 ### ✨ Key Features
 
-- **Animated Screensaver:** An eye-catching, breathing gradient background that activates after 60 seconds of inactivity to prevent screen burn-in and attract visitors.
+- **Animated Screensaver:** The home page (`index.html`) features an eye-catching, breathing gradient background that serves as the default landing screen. Other pages automatically redirect back to it after 60 seconds of inactivity, preventing screen burn-in and attracting visitors.
 - **Bilingual Interface:** Full support for German and Arabic, including RTL (Right-to-Left) layout switching.
 - **Modern Light Design:** A clean, professional "Glassmorphism" aesthetic with high-contrast buttons and soft shadows.
-- **Fixed Viewport:** Zero-scroll architecture; all content is scaled to fit exactly within the 800x1280 frame.
-- **Information Hub:** Interactive cards for Nikah (marriage), language courses, Quran lessons, and prayer times.
+- **Fixed Viewport:** Zero-scroll architecture; all content is scaled to fit within a 1080×1920 frame, with responsive breakpoints for tablets and phones.
 
 ---
 
@@ -29,16 +28,9 @@ A modern, touch-optimized kiosk application designed to provide visitors with qu
 ├── index.html          # The Screensaver (Home Page)
 ├── language.html       # Language Selection Page
 ├── portal.html         # Main Info Hub & Dynamic Content
-├── shared.css          # Global Styles & 800x1280 Layout Logic
-│
+├── shared.css          # Global Styles & 1080×1920 Layout Logic
+├── sw.js               # Service Worker (offline caching)
 └── /assets             # Media Folder
-    ├── IZS_Logo_Black.png # Official Center Logo (dark)
-    ├── IZS_Logo_White.png # Official Center Logo (white, for screensaver)
-    ├── QR_Nikah.png       # QR code for marriage inquiries
-    ├── QR_Telegram.png # QR code for Imam contact
-    ├── QR_Apple.png    # App Store link
-    └── QR_Android.png  # Play Store link
-
 ```
 
 ---
@@ -72,4 +64,4 @@ A modern, touch-optimized kiosk application designed to provide visitors with qu
 
 ### ⚖️ Design Philosophy
 
-The UI follows a **"Touch-First"** approach. Every button has a minimum hit area of 80px to ensure accessibility for all age groups. The color palette uses `#1a5d48` (IZS Green) as the primary anchor to maintain brand consistency while utilizing a white background to ensure maximum readability under indoor lighting.
+The UI follows a **"Touch-First"** approach. Buttons and cards use responsive `clamp()` sizing to ensure comfortable touch targets across screen sizes. The color palette uses `#1a5d48` (IZS Green) as the primary anchor to maintain brand consistency while utilizing a white background to ensure maximum readability under indoor lighting.

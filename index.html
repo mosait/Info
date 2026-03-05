@@ -193,11 +193,10 @@
       // Start overlay fade-in immediately with content
       overlay.classList.add('active');
       
-      // Navigate while overlay is mid-transition for seamless handoff
-      // The language page will continue the reveal
+      // Navigate after overlay fully covers the page
       setTimeout(() => {
         window.location.href = 'language.html';
-      }, 80);
+      }, 300);
     }
   </script>
   <script>

@@ -8,6 +8,11 @@
   <link rel="preload" href="./assets/QR_Nikah.png" as="image">
   <link rel="preload" href="./assets/QR_Apple.png" as="image">
   <link rel="preload" href="./assets/QR_Android.png" as="image">
+  <script>
+    if (sessionStorage.getItem('fromPage')) {
+      document.documentElement.classList.add('page-entering');
+    }
+  </script>
   <style>
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.5);
@@ -106,6 +111,10 @@
     }
     
     /* White overlay for page-to-page transitions */
+    html.page-entering .white-overlay {
+      opacity: 1 !important;
+      transition: none !important;
+    }
     .white-overlay {
       position: fixed;
       inset: 0;
@@ -113,7 +122,7 @@
       z-index: 199;
       pointer-events: none;
       opacity: 0;
-      transition: opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
     .white-overlay.active {
       opacity: 1;
@@ -191,7 +200,7 @@
       
       setTimeout(() => {
         window.location.href = url;
-      }, 150);
+      }, 300);
     }
 
     // Check if coming from language page (use white reveal)
@@ -200,6 +209,7 @@
     const content = document.getElementById('content');
     
     if (sessionStorage.getItem('fromPage')) {
+      document.documentElement.classList.remove('page-entering');
       whiteOverlay.classList.add('entry');
       sessionStorage.removeItem('fromPage');
       
