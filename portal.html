@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="shared.css">
+  <!-- Preload assets used in modals -->
+  <link rel="preload" href="./assets/QR_Nikah.png" as="image">
+  <link rel="preload" href="./assets/QR_Apple.png" as="image">
+  <link rel="preload" href="./assets/QR_Android.png" as="image">
   <style>
     .modal-overlay {
       position: fixed; inset: 0; background: rgba(0,0,0,0.5);
@@ -143,10 +147,9 @@
     .content-wrapper.exiting .back-nav,
     .content-wrapper.exiting img,
     .content-wrapper.exiting .topic-card {
-      transition: opacity 0.3s ease, transform 0.35s ease, filter 0.3s ease;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
       opacity: 0;
-      transform: scale(0.95) translateY(-10px);
-      filter: blur(3px);
+      transform: scale(0.97) translateY(-6px);
     }
     .content-wrapper.exiting .topic-card { transition-delay: 0s; }
     .content-wrapper.exiting img { transition-delay: 0.05s; }
@@ -188,7 +191,7 @@
       
       setTimeout(() => {
         window.location.href = url;
-      }, 280);
+      }, 150);
     }
 
     // Check if coming from language page (use white reveal)
@@ -438,6 +441,11 @@
     };
     window.onclick = resetTimer;
     resetTimer();
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
   </script>
 </body>
 </html>

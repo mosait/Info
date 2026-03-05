@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="shared.css">
+  <!-- Preload next-page assets -->
+  <link rel="preload" href="portal.html" as="document">
+  <link rel="preload" href="./assets/IZS_Logo_Black.png" as="image">
   <script>
     // Blocking script: immediately apply green background if coming from screensaver
     // This runs before any CSS or content loads, preventing the "color pop"
@@ -87,13 +90,12 @@
     .content-wrapper.animate-in img,
     .content-wrapper.animate-in .lang-card {
       opacity: 0;
-      transform: translateY(30px) scale(0.97);
-      filter: blur(3px);
+      transform: translateY(20px) scale(0.98);
     }
     .content-wrapper.animate-in.start h1,
     .content-wrapper.animate-in.start img,
     .content-wrapper.animate-in.start .lang-card {
-      animation: slideUpFadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      animation: slideUpFadeIn 0.25s ease-out forwards;
     }
     .content-wrapper.animate-in.start h1 { animation-delay: 0s; }
     .content-wrapper.animate-in.start img { animation-delay: 0.04s; }
@@ -109,13 +111,11 @@
     @keyframes slideUpFadeIn {
       from {
         opacity: 0;
-        transform: translateY(30px) scale(0.97);
-        filter: blur(3px);
+        transform: translateY(20px) scale(0.98);
       }
       to {
         opacity: 1;
         transform: translateY(0) scale(1);
-        filter: blur(0);
       }
     }
     
@@ -123,10 +123,9 @@
     .content-wrapper.exiting h1,
     .content-wrapper.exiting img,
     .content-wrapper.exiting .lang-card {
-      transition: opacity 0.3s ease, transform 0.35s ease, filter 0.3s ease;
+      transition: opacity 0.2s ease-out, transform 0.2s ease-out;
       opacity: 0;
-      transform: scale(0.95) translateY(-10px);
-      filter: blur(3px);
+      transform: scale(0.97) translateY(-6px);
     }
     .content-wrapper.exiting .lang-card:last-of-type { transition-delay: 0s; }
     .content-wrapper.exiting .lang-card:first-of-type { transition-delay: 0.05s; }
@@ -205,7 +204,7 @@
       
       setTimeout(() => {
         window.location.href = url;
-      }, 280);
+      }, 150);
     }
     
     // Fade to green for screensaver (idle timeout)
@@ -236,6 +235,11 @@
     };
     window.onclick = resetTimer;
     resetTimer();
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
+    }
   </script>
 </body>
 </html>

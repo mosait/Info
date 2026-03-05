@@ -4,6 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="shared.css">
+  <!-- Preload next-page assets so they're ready before navigation -->
+  <link rel="preload" href="language.html" as="document">
+  <link rel="preload" href="./assets/IZS_Logo_Black.png" as="image">
   <style>
     .transition-overlay {
       position: fixed;
@@ -20,35 +23,17 @@
       opacity: 1;
     }
     
-    /* Ripple effect from center */
-    .transition-overlay::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      width: 0;
-      height: 0;
-      background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
-      border-radius: 50%;
-      transform: translate(-50%, -50%);
-      transition: width 0.6s cubic-bezier(0.16, 1, 0.3, 1), height 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    .transition-overlay.active::before {
-      width: 200vmax;
-      height: 200vmax;
-    }
+    /* Ripple removed — too expensive on low-end GPU */
     
     /* Exit animation - elegant staggered zoom-fade */
     .screensaver-bg.exiting .logo-main,
     .screensaver-bg.exiting .title-main,
     .screensaver-bg.exiting .title-sub,
     .screensaver-bg.exiting .touch-area {
-      transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1), 
-                  transform 0.18s cubic-bezier(0.4, 0, 0.2, 1),
-                  filter 0.15s ease;
+      transition: opacity 0.12s ease-out, 
+                  transform 0.12s ease-out;
       opacity: 0;
-      transform: scale(1.03) translateY(-10px);
-      filter: blur(2px);
+      transform: scale(1.02) translateY(-6px);
     }
     .screensaver-bg.exiting .logo-main { transition-delay: 0s; }
     .screensaver-bg.exiting .title-main { transition-delay: 0.03s; }
@@ -61,8 +46,7 @@
     .screensaver-bg.entering .title-sub,
     .screensaver-bg.entering .touch-area {
       opacity: 0;
-      transform: translateY(30px) scale(0.95);
-      filter: blur(4px);
+      transform: translateY(20px) scale(0.97);
     }
     .screensaver-bg.entering .logo-main,
     .screensaver-bg.entering .title-main,
@@ -73,12 +57,10 @@
     .screensaver-bg.entering.animate .title-main,
     .screensaver-bg.entering.animate .title-sub,
     .screensaver-bg.entering.animate .touch-area {
-      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), 
-                  transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
-                  filter 0.4s ease-out;
+      transition: opacity 0.35s ease-out, 
+                  transform 0.35s ease-out;
       opacity: 1;
       transform: translateY(0) scale(1);
-      filter: blur(0);
     }
     .screensaver-bg.entering.animate .logo-main { transition-delay: 0s; }
     .screensaver-bg.entering.animate .title-main { transition-delay: 0.06s; }
@@ -215,7 +197,12 @@
       // The language page will continue the reveal
       setTimeout(() => {
         window.location.href = 'language.html';
-      }, 150);
+      }, 80);
+    }
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('./sw.js');
     }
   </script>
 </body>

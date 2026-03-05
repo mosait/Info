@@ -109,7 +109,6 @@ body {
   text-decoration: none; color: var(--primary);
   transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease, border-color 0.3s ease;
   border: 2px solid rgba(26,93,72,0.10);
-  backdrop-filter: blur(8px);
   position: relative;
   overflow: hidden;
 }
@@ -123,19 +122,17 @@ body {
 .lang-card::after {
   content: '';
   position: absolute;
-  width: clamp(200px, 30vmin, 400px); height: clamp(200px, 30vmin, 400px);
-  background: radial-gradient(circle, rgba(26,93,72,0.25) 0%, transparent 70%);
+  inset: 0;
+  background: rgba(26,93,72,0.08);
   border-radius: 50%;
-  transform: scale(0);
   opacity: 0;
-  transition: transform 0.5s ease, opacity 0.4s ease;
+  transition: opacity 0.3s ease;
   pointer-events: none;
   z-index: 1;
 }
 .lang-card:active::after {
-  transform: scale(2);
   opacity: 1;
-  transition: transform 0s, opacity 0s;
+  transition: opacity 0s;
 }
 .lang-card > * { position: relative; z-index: 2; }
 .lang-card:active, .lang-card:focus {
@@ -175,16 +172,14 @@ body {
 .topic-card::before {
   content: '';
   position: absolute;
-  top: 50%; left: 50%;
-  width: 0; height: 0;
-  background: radial-gradient(circle, rgba(26,93,72,0.2) 0%, transparent 70%);
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  transition: width 0.5s ease, height 0.5s ease;
+  inset: 0;
+  background: rgba(26,93,72,0.06);
+  opacity: 0;
+  transition: opacity 0.3s ease;
   z-index: 0;
 }
 .topic-card:hover::before {
-  width: clamp(250px, 40vmin, 500px); height: clamp(250px, 40vmin, 500px);
+  opacity: 1;
 }
 .topic-card::after {
   content: '';
@@ -275,15 +270,13 @@ body {
 
 /* Modal overlay and content improvements */
 .modal-overlay {
-  background: rgba(0,0,0,0.55) !important;
-  backdrop-filter: blur(12px) !important;
+  background: rgba(0,0,0,0.6) !important;
 }
 .modal-content {
   box-shadow: 0 12px 48px 0 rgba(26,93,72,0.18), 0 2px 12px 0 rgba(0,0,0,0.10) !important;
   border-radius: clamp(20px, 3vmin, 40px) !important;
   border: 1.5px solid rgba(26,93,72,0.10) !important;
-  background: rgba(255,255,255,0.97) !important;
-  backdrop-filter: blur(8px) !important;
+  background: #fff !important;
 }
 
 /* ===========================================
