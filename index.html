@@ -8,37 +8,18 @@
   <link rel="preload" href="language.html" as="document">
   <link rel="preload" href="./assets/IZS_Logo_Black.png" as="image">
   <style>
-    .transition-overlay {
+    .white-overlay {
       position: fixed;
       inset: 0;
-      background: linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48);
-      background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
+      background: var(--bg);
       z-index: 100;
       opacity: 0;
       pointer-events: none;
       transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    .transition-overlay.active {
+    .white-overlay.active {
       opacity: 1;
     }
-    
-    /* Ripple removed — too expensive on low-end GPU */
-    
-    /* Exit animation - elegant staggered zoom-fade */
-    .screensaver-bg.exiting .logo-main,
-    .screensaver-bg.exiting .title-main,
-    .screensaver-bg.exiting .title-sub,
-    .screensaver-bg.exiting .touch-area {
-      transition: opacity 0.12s ease-out, 
-                  transform 0.12s ease-out;
-      opacity: 0;
-      transform: scale(1.02) translateY(-6px);
-    }
-    .screensaver-bg.exiting .logo-main { transition-delay: 0s; }
-    .screensaver-bg.exiting .title-main { transition-delay: 0.03s; }
-    .screensaver-bg.exiting .title-sub { transition-delay: 0.06s; }
-    .screensaver-bg.exiting .touch-area { transition-delay: 0.09s; }
     
     /* Entry animation when coming from timeout - elegant reveal */
     .screensaver-bg.entering .logo-main,
@@ -143,7 +124,7 @@
   </style>
 </head>
 <body>
-  <div class="transition-overlay" id="overlay"></div>
+  <div class="white-overlay" id="whiteOverlay"></div>
   <a href="language.html" class="screensaver-bg" id="screensaver" onclick="navigateAway(event)" style="padding-bottom: clamp(40px, 12vmin, 200px);">
     <img src="./assets/IZS_Logo_White.png" alt="Logo" class="logo-main">
     <div class="title-main">Infopoint</div>
@@ -182,18 +163,12 @@
 
     function navigateAway(event) {
       event.preventDefault();
-      const overlay = document.getElementById('overlay');
+      const whiteOverlay = document.getElementById('whiteOverlay');
       
-      // Mark that we're coming from screensaver
-      sessionStorage.setItem('fromScreensaver', 'true');
+      sessionStorage.setItem('fromPage', 'true');
       
-      // Start exit animation on content
-      screensaver.classList.add('exiting');
+      whiteOverlay.classList.add('active');
       
-      // Start overlay fade-in immediately with content
-      overlay.classList.add('active');
-      
-      // Navigate after overlay fully covers the page
       setTimeout(() => {
         window.location.href = 'language.html';
       }, 300);

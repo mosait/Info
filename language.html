@@ -8,32 +8,11 @@
   <link rel="preload" href="portal.html" as="document">
   <link rel="preload" href="./assets/IZS_Logo_Black.png" as="image">
   <script>
-    // Blocking script: immediately apply green background if coming from screensaver
-    // This runs before any CSS or content loads, preventing the "color pop"
-    if (sessionStorage.getItem('fromScreensaver')) {
-      document.documentElement.style.background = 'linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48)';
-      document.documentElement.style.backgroundSize = '400% 400%';
-      document.documentElement.style.transition = 'background 0.35s cubic-bezier(0.16, 1, 0.3, 1)';
-    }
     if (sessionStorage.getItem('fromPage')) {
       document.documentElement.classList.add('page-entering');
     }
   </script>
   <style>
-    /* Perfect seamless transition: body morphs from green to white */
-    body {
-       transition: background 0.35s cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    body.from-green {
-      background: linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48) !important;
-      background-size: 400% 400% !important;
-      animation: gradientBG 15s ease infinite;
-    }
-    body.from-green.morph {
-      background: var(--bg) !important;
-      animation: none;
-    }
-    
     /* Green overlay only needed for exit to screensaver */
     .green-overlay {
       position: fixed;
@@ -86,46 +65,6 @@
       transform: translateY(10px) scale(0.99);
       transition: opacity 0.25s ease-out, transform 0.25s ease-out;
     }
-    .content-wrapper.from-overlay {
-      /* Content is ready but hidden behind overlay */
-      opacity: 1;
-      transform: translateY(0) scale(1);
-    }
-    
-    /* Staggered entry animation for content elements */
-    .content-wrapper.animate-in h1,
-    .content-wrapper.animate-in img,
-    .content-wrapper.animate-in .lang-card {
-      opacity: 0;
-      transform: translateY(20px) scale(0.98);
-    }
-    .content-wrapper.animate-in.start h1,
-    .content-wrapper.animate-in.start img,
-    .content-wrapper.animate-in.start .lang-card {
-      animation: slideUpFadeIn 0.25s ease-out forwards;
-    }
-    .content-wrapper.animate-in.start h1 { animation-delay: 0s; }
-    .content-wrapper.animate-in.start img { animation-delay: 0.04s; }
-    .content-wrapper.animate-in.start .lang-card:first-of-type { animation-delay: 0.08s; }
-    .content-wrapper.animate-in.start .lang-card:last-of-type { animation-delay: 0.12s; }
-    
-    /* Prevent flash: if fromScreensaver flag exists, body starts green via inline style */
-    body.instant-green {
-      background: linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48) !important;
-      background-size: 400% 400% !important;
-    }
-    
-    @keyframes slideUpFadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(20px) scale(0.98);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-      }
-    }
-    
     /* Exit to screensaver - content dissolve */
     .content-wrapper.exiting h1,
     .content-wrapper.exiting img,
@@ -171,26 +110,7 @@
     const whiteOverlay = document.getElementById('whiteOverlay');
     const content = document.getElementById('content');
     
-    // Check if coming from screensaver (seamless green-to-white morph)
-    if (sessionStorage.getItem('fromScreensaver')) {
-      // Start with green background - content invisible
-      document.body.classList.add('from-green');
-      content.classList.add('animate-in');
-      sessionStorage.removeItem('fromScreensaver');
-      
-      // Tiny delay for page to fully render, then start synchronized morph
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          // Transition html element's background to transparent (reveals body underneath)
-          document.documentElement.style.background = 'transparent';
-          // Background morphs green → white while content fades in
-          document.body.classList.add('morph');
-          content.classList.add('start');
-        });
-      });
-    }
-    // Check if coming from portal (use white reveal)
-    else if (sessionStorage.getItem('fromPage')) {
+    if (sessionStorage.getItem('fromPage')) {
       document.documentElement.classList.remove('page-entering');
       whiteOverlay.classList.add('entry');
       sessionStorage.removeItem('fromPage');
