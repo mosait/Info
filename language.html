@@ -19,7 +19,6 @@
       inset: 0;
       background: linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48);
       background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
       z-index: 100;
       pointer-events: none;
       opacity: 0;
@@ -27,6 +26,7 @@
     }
     .green-overlay.active {
       opacity: 1;
+      animation: gradientBG 15s ease infinite;
     }
     
     /* White overlay for page-to-page transitions */

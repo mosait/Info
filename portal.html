@@ -79,7 +79,6 @@
       inset: 0;
       background: linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48);
       background-size: 400% 400%;
-      animation: gradientBG 15s ease infinite;
       z-index: 200;
       opacity: 0;
       pointer-events: none;
@@ -87,6 +86,7 @@
     }
     .green-overlay.active {
       opacity: 1;
+      animation: gradientBG 15s ease infinite;
     }
     /* Dissolve effect for exit to screensaver */
     .green-overlay::after {
@@ -135,12 +135,6 @@
       opacity: 0;
       transition: opacity 0.35s cubic-bezier(0.4, 0, 0.2, 1);
     }
-    @keyframes gradientBG {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
-    
     /* Content animation */
     .content-wrapper {
       opacity: 1;
@@ -434,12 +428,12 @@
       setTimeout(() => {
         overlay.classList.remove('entry', 'reveal');
         overlay.classList.add('active');
-      }, 150);
+      }, 100);
       
       // Navigate when fully covered
       setTimeout(() => {
         window.location.href = 'index.html';
-      }, 600);
+      }, 400);
     }
 
     let idle;
