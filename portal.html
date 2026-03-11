@@ -387,25 +387,19 @@
     }
 
     const grid = document.getElementById('grid');
-    // Single innerHTML write instead of 6 createElement+appendChild calls → 1 reflow, not 6
-    grid.innerHTML = topics.map(t =>
-      `<div class="topic-card" data-id="${t.id}">
-        <span class="icon">${t.icon}</span>
-        <span class="label">${lang === 'ar' ? t.arTitle : t.deTitle}</span>
-      </div>`
-    ).join('');
-
-    // Event delegation: one listener on the grid instead of 6 on each card
-    grid.onclick = (e) => {
-      const card = e.target.closest('.topic-card');
-      if (!card) return;
-      const t = topics.find(tp => tp.id == card.dataset.id);
-      if (!t) return;
-      document.getElementById('mTitle').innerHTML = lang === 'ar' ? t.arTitle : t.deTitle;
-      document.getElementById('mBody').innerHTML = lang === 'ar' ? t.arInfo : t.deInfo;
-      document.getElementById('mBody').className = lang === 'ar' ? 'rtl' : '';
-      openModal();
-    };
+    topics.forEach(t => {
+      const btn = document.createElement('div');
+      btn.className = 'topic-card';
+      btn.innerHTML = `<span class="icon">${t.icon}</span><span class="label">${lang === 'ar' ? t.arTitle : t.deTitle}</span>`;
+      btn.onclick = () => {
+        // Use innerHTML so any HTML (e.g. <br>) in the title is rendered
+        document.getElementById('mTitle').innerHTML = lang === 'ar' ? t.arTitle : t.deTitle;
+        document.getElementById('mBody').innerHTML = lang === 'ar' ? t.arInfo : t.deInfo;
+        document.getElementById('mBody').className = lang === 'ar' ? 'rtl' : '';
+        openModal();
+      };
+      grid.appendChild(btn);
+    });
 
     const backButton = document.querySelector('.back-nav');
     const closeButton = document.querySelector('#modal button');
