@@ -165,7 +165,9 @@
   <div class="container content-wrapper" id="content" style="padding: clamp(20px, 2.1vmin, 40px) clamp(35px, 3.5vmin, 68px);">
     <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: clamp(45px, 4.8vmin, 95px);">
       <a href="language.html" class="back-nav" onclick="navigateTo(event, this.href)">← Zurück / Back</a>
-      <img src="./assets/IZS_Logo_Black.png" alt="Logo" style="height: clamp(55px, 5.5vmin, 108px);">
+      <a href="language.html" onclick="navigateTo(event, this.href)" aria-label="Zur Sprachseite">
+        <img src="./assets/IZS_Logo_Black.png" alt="Logo" style="height: clamp(55px, 5.5vmin, 108px); cursor: pointer;">
+      </a>
     </div>
 
     <div id="grid" class="topics-grid"></div>
