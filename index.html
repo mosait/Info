@@ -20,34 +20,69 @@
     .white-overlay.active {
       opacity: 1;
     }
-    
-    /* Entry animation when coming from timeout - elegant reveal */
-    .screensaver-bg.entering .logo-main,
-    .screensaver-bg.entering .title-main,
-    .screensaver-bg.entering .title-sub,
-    .screensaver-bg.entering .touch-area {
+
+    /* ── Slideshow ── */
+    #slideshow {
+      position: fixed;
+      inset: 0;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    /* Entry fade-in when returning from timeout */
+    #slideshow.entering {
       opacity: 0;
-      transform: translateY(20px) scale(0.97);
     }
-    .screensaver-bg.entering .logo-main,
-    .screensaver-bg.entering .title-main,
-    .screensaver-bg.entering .title-sub {
-      animation: none;
-    }
-    .screensaver-bg.entering.animate .logo-main,
-    .screensaver-bg.entering.animate .title-main,
-    .screensaver-bg.entering.animate .title-sub,
-    .screensaver-bg.entering.animate .touch-area {
-      transition: opacity 0.35s ease-out, 
-                  transform 0.35s ease-out;
+    #slideshow.entering.animate {
+      transition: opacity 0.5s ease-out;
       opacity: 1;
-      transform: translateY(0) scale(1);
     }
-    .screensaver-bg.entering.animate .logo-main { transition-delay: 0s; }
-    .screensaver-bg.entering.animate .title-main { transition-delay: 0.06s; }
-    .screensaver-bg.entering.animate .title-sub { transition-delay: 0.12s; }
-    .screensaver-bg.entering.animate .touch-area { transition-delay: 0.18s; }
-    
+
+    .slide {
+      position: absolute;
+      inset: 0;
+      opacity: 0;
+      transition: opacity 0.9s ease-in-out;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide.active {
+      opacity: 1;
+    }
+
+    /* Image slides */
+    .slide-img-wrap {
+      width: 100%;
+      height: 100%;
+      background: #000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slide-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    /* Animated Infopoint slide */
+    .slide-animated {
+      background: linear-gradient(-45deg, #1a5d48, #2d8a6c, #164e3c, #1a5d48);
+      background-size: 400% 400%;
+      animation: gradientBG 15s ease infinite;
+      flex-direction: column;
+      color: white;
+      text-align: center;
+      padding-bottom: clamp(40px, 12vmin, 200px);
+    }
+    @keyframes gradientBG {
+      0%   { background-position: 0% 50%; }
+      50%  { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
     .logo-main {
       width: clamp(120px, 28vmin, 520px);
       margin-bottom: clamp(4px, 1vmin, 20px);
@@ -72,7 +107,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      margin-top: clamp(30px, 15vmin, 240px);
+      margin-top: clamp(16px, 7vmin, 120px);
     }
     .touch-icon-wrapper {
       position: relative;
@@ -93,8 +128,8 @@
     .pulse-ring:nth-child(2) { animation-delay: 1s; }
     .pulse-ring:nth-child(3) { animation-delay: 2s; }
     @keyframes ripple {
-      0% { transform: scale(0.6); opacity: 0; }
-      15% { opacity: 0.45; }
+      0%   { transform: scale(0.6); opacity: 0; }
+      15%  { opacity: 0.45; }
       100% { transform: scale(2.2); opacity: 0; }
     }
     .touch-icon svg {
@@ -105,73 +140,207 @@
     }
     @keyframes tapBounce {
       0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(4px); }
+      50%       { transform: translateY(4px); }
     }
     .touch-label {
       position: absolute;
       bottom: clamp(16px, 4vmin, 70px);
-      left: 0;
-      right: 0;
+      left: 0; right: 0;
       font-size: clamp(14px, 2.2vmin, 38px);
       font-weight: 300;
-      opacity: 0.7;
+      opacity: 0.95;
       line-height: 1.6;
       text-align: center;
     }
+
+    /* CTA on image slides — mirrors the animated slide */
+    .slide-cta {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      padding-bottom: clamp(24px, 4.5vmin, 64px);
+      gap: clamp(8px, 1.5vmin, 22px);
+      pointer-events: none;
+    }
+    .slide-cta .touch-icon-wrapper {
+      filter: drop-shadow(0 0 3px rgba(0,0,0,0.9)) drop-shadow(0 0 6px rgba(0,0,0,0.7));
+    }
+    .slide-cta .touch-label {
+      font-size: clamp(14px, 2.2vmin, 38px);
+      font-weight: 400;
+      color: white;
+      text-shadow:
+        -1px -1px 0 rgba(0,0,0,0.9),
+         1px -1px 0 rgba(0,0,0,0.9),
+        -1px  1px 0 rgba(0,0,0,0.9),
+         1px  1px 0 rgba(0,0,0,0.9),
+         0 2px 8px rgba(0,0,0,0.8);
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    /* Slide indicator dots */
+    .slide-dots {
+      position: absolute;
+      bottom: clamp(10px, 1.8vmin, 28px);
+      left: 0; right: 0;
+      display: flex;
+      justify-content: center;
+      gap: clamp(6px, 1.2vmin, 16px);
+      z-index: 10;
+      pointer-events: none;
+    }
+    .dot {
+      width: clamp(7px, 1.3vmin, 18px);
+      height: clamp(7px, 1.3vmin, 18px);
+      border-radius: 50%;
+      background: rgba(255,255,255,0.4);
+      box-shadow: 0 1px 4px rgba(0,0,0,0.4);
+      transition: background 0.3s, transform 0.3s;
+    }
+    .dot.active {
+      background: white;
+      transform: scale(1.35);
+    }
+
     @media (prefers-reduced-motion: reduce) {
-      .pulse-ring, .touch-icon svg { animation: none !important; }
+      .pulse-ring, .touch-icon svg,
+      .slide-animated { animation: none !important; }
+      .slide { transition: none !important; }
     }
   </style>
 </head>
 <body>
   <div class="white-overlay" id="whiteOverlay"></div>
-  <a href="language.html" class="screensaver-bg" id="screensaver" onclick="navigateAway(event)" style="padding-bottom: clamp(40px, 12vmin, 200px);">
-    <img src="./assets/IZS_Logo_White.png" alt="Logo" class="logo-main">
-    <div class="title-main">Infopoint</div>
-    <div class="title-sub" dir="rtl">نقطة معلومات</div>
-    <div class="touch-area">
-      <div class="touch-icon-wrapper">
-        <div class="pulse-ring"></div>
-        <div class="pulse-ring"></div>
-        <div class="pulse-ring"></div>
-        <div class="touch-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>
+
+  <div id="slideshow" onclick="navigateAway(event)">
+
+    <!-- Animated Infopoint slide (first) -->
+    <div class="slide slide-animated active" id="slide-0">
+      <img src="./assets/IZS_Logo_White.png" alt="Logo" class="logo-main">
+      <div class="title-main">Infopoint</div>
+      <div class="title-sub" dir="rtl">نقطة معلومات</div>
+      <div class="touch-area">
+        <div class="touch-icon-wrapper">
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="touch-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>
+          </div>
         </div>
       </div>
+      <div class="touch-label">Berühre um zu starten<br><span dir="rtl">اضغط للبدء</span></div>
     </div>
-    <div class="touch-label">Berühre um zu starten<br><span dir="rtl">اضغط للبدء</span></div>
-  </a>
+
+    <!-- Image slides (poster/) -->
+    <div class="slide" id="slide-1">
+      <div class="slide-img-wrap">
+        <img src="poster/0.png" alt="Poster 1">
+      </div>
+      <div class="slide-cta">
+        <div class="touch-icon-wrapper">
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="touch-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>
+          </div>
+        </div>
+        <div class="touch-label">Berühre um zu starten &nbsp;·&nbsp; <span dir="rtl">اضغط للبدء</span></div>
+      </div>
+    </div>
+    <div class="slide" id="slide-2">
+      <div class="slide-img-wrap">
+        <img src="poster/1.png" alt="Poster 2">
+      </div>
+      <div class="slide-cta">
+        <div class="touch-icon-wrapper">
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="touch-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>
+          </div>
+        </div>
+        <div class="touch-label">Berühre um zu starten &nbsp;·&nbsp; <span dir="rtl">اضغط للبدء</span></div>
+      </div>
+    </div>
+    <div class="slide" id="slide-3">
+      <div class="slide-img-wrap">
+        <img src="poster/2.png" alt="Poster 3">
+      </div>
+      <div class="slide-cta">
+        <div class="touch-icon-wrapper">
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="pulse-ring"></div>
+          <div class="touch-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>
+          </div>
+        </div>
+        <div class="touch-label">Berühre um zu starten &nbsp;·&nbsp; <span dir="rtl">اضغط للبدء</span></div>
+      </div>
+    </div>
+
+    <!-- Dots -->
+    <div class="slide-dots" id="slideDots"></div>
+  </div>
 
   <script>
-    const screensaver = document.getElementById('screensaver');
-    
-    // Check if coming from timeout (white pages faded to green)
+    const SLIDE_DURATION = 6000; // ms per slide
+    const TOTAL_SLIDES = 4;
+
+    let current = 0;
+    let timer = null;
+
+    const slideshow = document.getElementById('slideshow');
+    const dotsContainer = document.getElementById('slideDots');
+
+    // Build dots
+    for (let i = 0; i < TOTAL_SLIDES; i++) {
+      const d = document.createElement('span');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      dotsContainer.appendChild(d);
+    }
+
+    function goToSlide(index) {
+      const slides = slideshow.querySelectorAll('.slide');
+      const dots = dotsContainer.querySelectorAll('.dot');
+      slides[current].classList.remove('active');
+      dots[current].classList.remove('active');
+      current = (index + TOTAL_SLIDES) % TOTAL_SLIDES;
+      slides[current].classList.add('active');
+      dots[current].classList.add('active');
+    }
+
+    function startTimer() {
+      clearInterval(timer);
+      timer = setInterval(() => goToSlide(current + 1), SLIDE_DURATION);
+    }
+
+    startTimer();
+
+    // Entry fade-in when returning from timeout
     if (sessionStorage.getItem('fromTimeout')) {
-      screensaver.classList.add('entering');
       sessionStorage.removeItem('fromTimeout');
-      // Trigger animation after a tiny delay
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          screensaver.classList.add('animate');
-          // Remove entering class after animation completes so pulse rings resume
-          setTimeout(() => {
-            screensaver.classList.remove('entering', 'animate');
-          }, 700);
-        });
-      });
+      slideshow.classList.add('entering');
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        slideshow.classList.add('animate');
+        setTimeout(() => slideshow.classList.remove('entering', 'animate'), 600);
+      }));
     }
 
     function navigateAway(event) {
       event.preventDefault();
-      const whiteOverlay = document.getElementById('whiteOverlay');
-      
+      clearInterval(timer);
       sessionStorage.setItem('fromPage', 'true');
-      
-      whiteOverlay.classList.add('active');
-      
-      setTimeout(() => {
-        window.location.href = 'language.html';
-      }, 200);
+      document.getElementById('whiteOverlay').classList.add('active');
+      setTimeout(() => { window.location.href = 'language.html'; }, 200);
     }
   </script>
   <script>
