@@ -1,4 +1,4 @@
-const CACHE_NAME = 'izs-info-v1';
+const CACHE_NAME = 'izs-info-v2';
 
 // Every file the kiosk needs — precache all on install
 const PRECACHE_URLS = [
@@ -13,7 +13,10 @@ const PRECACHE_URLS = [
   './assets/QR_Apple.png',
   './assets/QR_Nikah.png',
   './assets/QR_Telegram.png',
-  './assets/QR_Whatsapp_Channel.png'
+  './assets/QR_Whatsapp_Channel.png',
+  './poster/0.png',
+  './poster/1.png',
+  './poster/2.png'
 ];
 
 // Install: precache everything immediately
