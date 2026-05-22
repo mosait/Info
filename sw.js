@@ -16,7 +16,9 @@ const PRECACHE_URLS = [
   './assets/QR_Whatsapp_Channel.png',
   './poster/0.png',
   './poster/1.png',
-  './poster/2.png'
+  './poster/2.jpeg',
+  './poster/3.jpeg',
+  './poster/4.png'
 ];
 
 // Install: precache everything immediately
