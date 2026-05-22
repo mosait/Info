@@ -252,42 +252,44 @@
 
   <script>
     const SLIDE_DURATION = 6000; // ms per slide
-
-    // ── Add or remove poster filenames here ──────────────────────────
-    const POSTER_FILES = ['0.png', '1.png', '2.jpeg', '3.jpeg', '4.png'];
-    // ─────────────────────────────────────────────────────────────────
+    // Fallback used when offline or GitHub API is unavailable
+    const FALLBACK_POSTERS = ['0.png', '1.png', '2.jpeg', '3.jpeg', '4.png'];
 
     const slideshow = document.getElementById('slideshow');
     const dotsContainer = document.getElementById('slideDots');
 
-    // Build image slides from POSTER_FILES
-    const CTA_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>';
-    POSTER_FILES.forEach(function(file, i) {
-      const slide = document.createElement('div');
-      slide.className = 'slide';
-      slide.id = 'slide-' + (i + 1);
-      slide.innerHTML =
-        '<div class="slide-img-wrap"><img src="poster/' + file + '" alt="Poster ' + (i + 1) + '"></div>' +
-        '<div class="slide-cta">' +
-          '<div class="touch-icon-wrapper">' +
-            '<div class="pulse-ring"></div><div class="pulse-ring"></div><div class="pulse-ring"></div>' +
-            '<div class="touch-icon">' + CTA_SVG + '</div>' +
-          '</div>' +
-          '<div class="touch-label">Berühre um zu starten &nbsp;·&nbsp; <span dir="rtl">اضغط للبدء</span></div>' +
-        '</div>';
-      slideshow.insertBefore(slide, dotsContainer);
-    });
-
-    const TOTAL_SLIDES = 1 + POSTER_FILES.length;
-
     let current = 0;
     let timer = null;
+    let TOTAL_SLIDES = 1;
 
-    // Build dots
-    for (let i = 0; i < TOTAL_SLIDES; i++) {
-      const d = document.createElement('span');
-      d.className = 'dot' + (i === 0 ? ' active' : '');
-      dotsContainer.appendChild(d);
+    const CTA_SVG = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M9 11.24V7.5C9 6.12 10.12 5 11.5 5S14 6.12 14 7.5v3.74c1.21-.81 2-2.18 2-3.74C16 5.01 13.99 3 11.5 3S7 5.01 7 7.5c0 1.56.79 2.93 2 3.74zm9.84 4.63l-4.54-2.26c-.17-.07-.35-.11-.54-.11H13v-6c0-.83-.67-1.5-1.5-1.5S10 6.67 10 7.5v10.74l-3.43-.72c-.08-.01-.15-.03-.24-.03-.31 0-.59.13-.79.33l-.79.8 4.94 4.94c.27.27.65.44 1.06.44h6.79c.75 0 1.33-.55 1.44-1.28l.75-5.27c.01-.07.02-.14.02-.2 0-.62-.38-1.16-.91-1.38z"/></svg>';
+
+    function buildSlides(fileNames) {
+      fileNames.forEach(function(file, i) {
+        const slide = document.createElement('div');
+        slide.className = 'slide';
+        slide.id = 'slide-' + (i + 1);
+        slide.innerHTML =
+          '<div class="slide-img-wrap"><img src="poster/' + file + '" alt="Poster ' + (i + 1) + '"></div>' +
+          '<div class="slide-cta">' +
+            '<div class="touch-icon-wrapper">' +
+              '<div class="pulse-ring"></div><div class="pulse-ring"></div><div class="pulse-ring"></div>' +
+              '<div class="touch-icon">' + CTA_SVG + '</div>' +
+            '</div>' +
+            '<div class="touch-label">Berühre um zu starten &nbsp;·&nbsp; <span dir="rtl">اضغط للبدء</span></div>' +
+          '</div>';
+        slideshow.insertBefore(slide, dotsContainer);
+      });
+
+      TOTAL_SLIDES = 1 + fileNames.length;
+
+      for (let i = 0; i < TOTAL_SLIDES; i++) {
+        const d = document.createElement('span');
+        d.className = 'dot' + (i === 0 ? ' active' : '');
+        dotsContainer.appendChild(d);
+      }
+
+      startTimer();
     }
 
     function goToSlide(index) {
@@ -304,8 +306,6 @@
       clearInterval(timer);
       timer = setInterval(() => goToSlide(current + 1), SLIDE_DURATION);
     }
-
-    startTimer();
 
     // Entry fade-in when returning from timeout
     if (sessionStorage.getItem('fromTimeout')) {
@@ -324,6 +324,19 @@
       document.getElementById('whiteOverlay').classList.add('active');
       setTimeout(() => { window.location.href = 'language.html'; }, 200);
     }
+
+    // Dynamically fetch poster list from GitHub API
+    const IMAGE_EXT = /\.(png|jpe?g|webp|gif)$/i;
+    fetch('https://api.github.com/repos/IZS30/Info/contents/poster')
+      .then(function(r) { return r.ok ? r.json() : Promise.reject(r.status); })
+      .then(function(data) {
+        const files = data
+          .filter(function(f) { return f.type === 'file' && IMAGE_EXT.test(f.name); })
+          .map(function(f) { return f.name; })
+          .sort(function(a, b) { return a.localeCompare(b, undefined, { numeric: true }); });
+        buildSlides(files.length ? files : FALLBACK_POSTERS);
+      })
+      .catch(function() { buildSlides(FALLBACK_POSTERS); });
   </script>
   <script>
     if ('serviceWorker' in navigator) {
