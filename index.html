@@ -339,9 +339,26 @@
       .catch(function() { buildSlides(FALLBACK_POSTERS); });
   </script>
   <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('./sw.js');
-    }
+    // Once a day: wipe caches + unregister SW so everything reloads fresh
+    (function () {
+      var today = new Date().toISOString().slice(0, 10);
+      if (localStorage.getItem('dailyRefresh') !== today) {
+        localStorage.setItem('dailyRefresh', today);
+        var clearCaches = ('caches' in window)
+          ? caches.keys().then(function (keys) { return Promise.all(keys.map(function (k) { return caches.delete(k); })); })
+          : Promise.resolve();
+        var clearSW = ('serviceWorker' in navigator)
+          ? navigator.serviceWorker.getRegistrations().then(function (regs) { return Promise.all(regs.map(function (r) { return r.unregister(); })); })
+          : Promise.resolve();
+        Promise.all([clearCaches, clearSW]).then(function () {
+          window.location.replace('./index.html');
+        });
+        return;
+      }
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('./sw.js');
+      }
+    })();
   </script>
 </body>
 </html>

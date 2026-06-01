@@ -1,4 +1,6 @@
-const CACHE_NAME = 'izs-info-v2';
+// Cache name includes today's date so a new day = new cache key
+const today = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
+const CACHE_NAME = 'izs-info-' + today;
 
 // Every file the kiosk needs — precache all on install
 const PRECACHE_URLS = [
