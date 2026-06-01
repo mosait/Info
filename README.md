@@ -65,3 +65,9 @@ A modern, touch-optimized kiosk application designed to provide visitors with qu
 ### ⚖️ Design Philosophy
 
 The UI follows a **"Touch-First"** approach. Buttons and cards use responsive `clamp()` sizing to ensure comfortable touch targets across screen sizes. The color palette uses `#1a5d48` (IZS Green) as the primary anchor to maintain brand consistency while utilizing a white background to ensure maximum readability under indoor lighting.
+
+---
+
+### 🤖 AI Development Assistant
+
+This project has been developed with assistance from **Claude Sonnet 4.5** (model ID: `claude-sonnet-4-5-20250929`), an AI assistant by Anthropic. Claude helped with code structuring, documentation, and implementation best practices.
